@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Fundo com um gradiente suave para uma aparência mais agradável */
+            background: linear-gradient(135deg, #a7b7c2, #5a6d7a);
+        }
+
+        @keyframes dance {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-5px) rotate(5deg); }
+            50% { transform: translateY(0) rotate(-5deg); }
+            75% { transform: translateY(-5px) rotate(5deg); }
+        }
+        
+        #sapo {
+            animation: dance 1s infinite alternate;
+        }
+    </style>
+</head>
+<body class="text-white flex items-center justify-center min-h-screen">
+    <div class="flex flex-col md:flex-row items-center p-8 bg-gray-800 rounded-2xl shadow-lg border-2 border-gray-700 max-w-lg w-full mx-4">
+        
+        <!-- Sapo dançante -->
+        <div id="sapo" class="text-6xl md:text-8xl mb-4 md:mb-0 md:mr-6">
+            🐸
+        </div>
+
+        <div class="flex flex-col items-center">
+            <h1 class="text-3xl font-bold mb-4 text-center">Horário de Brasília</h1>
+            <div id="relogio" class="text-6xl md:text-7xl font-mono font-bold text-green-400">
+                00:00:00
+            </div>
+            <p class="mt-4 text-sm text-gray-400 text-center">A hora é atualizada a cada segundo.</p>
+        </div>
+    </div>
+
+    <script>
+        // Função para atualizar o relógio
+        function atualizarRelogio() {
+            const relogioElemento = document.getElementById('relogio');
+            if (relogioElemento) {
+                // Cria um novo objeto de data
+                const agora = new Date();
+                
+                // Opções para formatar a hora na zona de tempo de Brasília
+                const opcoes = {
+                    timeZone: 'America/Sao_Paulo',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                };
+
+                // Formata a hora para o fuso horário de Brasília
+                const horarioBrasilia = agora.toLocaleTimeString('pt-BR', opcoes);
+                
+                // Atualiza o texto do elemento HTML
+                relogioElemento.textContent = horarioBrasilia;
+            }
+        }
+
+        // Atualiza o relógio imediatamente ao carregar a página
+        atualizarRelogio();
+        
+        // Atualiza o relógio a cada segundo (1000 milissegundos)
+        setInterval(atualizarRelogio, 1000);
+    </script>
+</body>
+</html>
